@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#101010">
-  <meta name="description" content="Musify — listen to music right in your browser.">
-  <title>Musify — Music, in your browser</title>
-  <link rel="icon" href="https://raw.githubusercontent.com/gokadzev/Musify/master/assets/icons/musify_icon.png">
+  <meta name="theme-color" content="#0b0c0e">
+  <meta name="description" content="McCrackify — full-length music playback in your browser, powered by YouTube.">
+  <title>McCrackify — Music, your way</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23c5fa63%22/%3E%3Cpath d=%22M15 46V18h7l10 14 10-14h7v28h-8V31L32 44 23 31v15z%22 fill=%22%230b0c0e%22/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <a class="brand" href="#" aria-label="Musify home"><span class="brand-mark">♫</span><span>musify</span></a>
+      <a class="brand" href="#" aria-label="McCrackify home"><span class="brand-mark">♫</span><span>McCrackify</span></a>
       <div class="nav-label">MENU</div>
       <button class="nav-item active" data-view="home"><span>⌂</span> Home</button>
       <button class="nav-item" data-view="search"><span>⌕</span> Search</button>
@@ -29,7 +29,7 @@
         <form id="search-form" class="search-box"><span>⌕</span><input id="search-input" type="search" placeholder="What do you want to listen to?" autocomplete="off"><kbd>ENTER</kbd></form>
         <button id="theme-toggle" class="icon-button" title="Toggle appearance" aria-label="Toggle appearance">☼</button>
       </header>
-      <section id="youtube-stage" class="youtube-stage hidden" aria-label="Current music video"><div id="musify-yt-player"></div><p>Playback powered by YouTube · Use the controls below to manage your music</p></section>
+      <section id="youtube-stage" class="youtube-stage hidden" aria-label="Current music video"><div id="musify-yt-player"></div><p>Full-length music videos powered by YouTube · Use the controls below to manage playback</p></section>
       <section id="home-view" class="view">
         <div class="hero">
           <div class="hero-copy"><span class="eyebrow">YOUR MUSIC. YOUR WAY.</span><h1>Soundtrack<br>your moment.</h1><p>Discover music and listen right here. No app download, no APK — just open your browser and press play.</p><button id="hero-search" class="primary-button">Explore music <span>↗</span></button></div>
@@ -63,7 +63,7 @@
         <div class="page-title"><span class="eyebrow">YOUR COLLECTION</span><h1 id="playlist-title">Playlist</h1><p id="playlist-description">A playlist made for you.</p></div>
         <div id="playlist-content"></div>
       </section>
-      <footer class="footer"><span>♫ MUSIFY WEB</span><span>Made to play in your browser.</span><a href="https://github.com/Patrickmango49/Musify" target="_blank" rel="noreferrer">Open source ↗</a></footer>
+      <footer class="footer"><span>♫ McCrackify</span><span>© 2026 McCrack. Music streams from YouTube.</span><a href="https://github.com/Patrickmango49/Musify" target="_blank" rel="noreferrer">Open source ↗</a></footer>
     </main>
   </div>
   <div id="player" class="player">
