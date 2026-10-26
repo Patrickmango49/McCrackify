@@ -27,19 +27,28 @@
   function nextSong(){if(!state.queue.length)return;let next=state.index+1;if(state.shuffle&&state.queue.length>1){do{next=Math.floor(Math.random()*state.queue.length)}while(next===state.index)}else if(next>=state.queue.length){if(state.repeat)next=0;else{$('#play-pause').textContent='▶';$('#player-status').textContent='Queue finished';return}}state.index=next;playSong(state.queue[next])}
   function previousSong(){if(state.currentSource==='preview'&&state.audio&&state.audio.currentTime>4){state.audio.currentTime=0;return}if(state.ytReady&&state.currentSource==='youtube'){try{if(state.yt.getCurrentTime()>4){state.yt.seekTo(0,true);return}}catch{}}if(state.index>0){state.index-=1;playSong(state.queue[state.index])}}
   async function search(query){
-    query=query.trim();if(!query)return;state.query=query;$('#search-input').value=query;go('search');$('#search-status').textContent='Searching music catalogs…';$('#results').innerHTML='';
-    // Apple’s public catalog API provides browser-playable 30-second previews with no API key.
+    query=query.trim();if(!query)return;state.query=query;$('#search-input').value=query;go('search');$('#search-status').textContent='Searching for full-length music…';$('#results').innerHTML='';
+    // Prefer YouTube music videos so Musify can play the full video when embedding is allowed.
+    let lastError=null;
+    for(const base of API_INSTANCES){let timer;try{
+      const controller=new AbortController();timer=setTimeout(()=>controller.abort(),6500);
+      const response=await fetch(base+'/search?'+new URLSearchParams({q:query,filter:'music_songs'}),{signal:controller.signal,headers:{'Accept':'application/json'}});
+      clearTimeout(timer);if(!response.ok)throw new Error('Search service returned '+response.status);
+      const payload=await response.json();
+      const list=(Array.isArray(payload)?payload:payload.items||payload.results||[]).map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));
+      if(!list.length)throw new Error('No results');
+      $('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when the video allows embedding';
+      renderCards(list,$('#results'));return;
+    }catch(e){clearTimeout(timer);lastError=e}}
+    // If YouTube search proxies are unavailable, use Apple's licensed short previews as a fallback.
     try{
       const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),9000);
       const response=await fetch('https://itunes.apple.com/search?'+new URLSearchParams({term:query,entity:'song',media:'music',limit:'30'}),{signal:controller.signal,headers:{'Accept':'application/json'}});
       clearTimeout(timer);if(!response.ok)throw new Error('Catalog returned '+response.status);
       const data=await response.json();
       const tracks=(data.results||[]).filter(t=>t.previewUrl&&t.trackId).map(t=>({id:'itunes-'+t.trackId,title:t.trackName||'Unknown title',artist:t.artistName||'Unknown artist',album:t.collectionName||'',thumbnail:(t.artworkUrl100||'').replace('100x100','300x300'),duration:Math.round((t.trackTimeMillis||0)/1000),previewUrl:t.previewUrl,source:'apple'}));
-      if(tracks.length){$('#search-status').textContent='Results for “'+query+'” · '+tracks.length+' playable previews · 30 seconds each';renderCards(tracks,$('#results'));return}
+      if(tracks.length){$('#search-status').textContent='Apple Music catalog fallback · playable previews are usually about 30 seconds';renderCards(tracks,$('#results'));return}
     }catch(e){console.warn('Apple music preview search unavailable',e)}
-    // Fallback to YouTube music search for tracks that may not have Apple previews.
-    let lastError=null;
-    for(const base of API_INSTANCES){let timer;try{const controller=new AbortController();timer=setTimeout(()=>controller.abort(),6500);const response=await fetch(base+'/search?'+new URLSearchParams({q:query,filter:'music_songs'}),{signal:controller.signal,headers:{'Accept':'application/json'}});clearTimeout(timer);if(!response.ok)throw new Error('Search service returned '+response.status);const payload=await response.json();const list=(Array.isArray(payload)?payload:payload.items||payload.results||[]).map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));if(!list.length)throw new Error('No results');$('#search-status').textContent='YouTube results for “'+query+'” · playback depends on video availability';renderCards(list,$('#results'));return}catch(e){clearTimeout(timer);lastError=e}}
     $('#search-status').textContent='Music search services could not be reached.';
     $('#results').innerHTML='<div class="empty-state">The music catalogs could not be reached from this browser right now. Check your connection or try again later.<br><br><a href="https://music.youtube.com/search?q='+encodeURIComponent(query)+'" target="_blank" rel="noreferrer" style="color:var(--accent)">Search YouTube Music ↗</a></div>';console.warn('Musify search failed',lastError)
   }
