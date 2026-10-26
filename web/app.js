@@ -78,7 +78,7 @@
         let match=records.find(r=>cleanTitle(r.trackName)===title&&(!artist||cleanTitle(r.artistName)===artist));
         if(!match)match=records.find(r=>{const t=cleanTitle(r.trackName);return title&& (t===title||t.includes(title)||title.includes(t))});
         const art=match?.artworkUrl100||match?.artworkUrl60;
-        if(art){song.thumbnail=art.replace(/\\d+x\\d+bb\\./,'800x800bb.').replace(/\\d+x\\d+\\./,'800x800.');artworkCache[song.id]=song.thumbnail;}
+        if(art){song.thumbnail=art.replace(/\d+x\d+bb\./,'800x800bb.').replace(/\d+x\d+\./,'800x800.');artworkCache[song.id]=song.thumbnail;}
         else if(artworkCache[song.id])song.thumbnail=artworkCache[song.id];
       }
       save(ART_CACHE_KEY,artworkCache);
