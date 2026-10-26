@@ -66,7 +66,8 @@
   const artworkCache=load(ART_CACHE_KEY,{});
   const cleanTitle=s=>String(s||'').toLowerCase().replace(/\\(.*?\\)|\\[.*?\\]/g,' ').replace(/[^a-z0-9]+/g,' ').trim();
   async function loadArtwork(songs,query){
-    const missing=songs.filter(s=>!s.thumbnail||s.thumbnail.includes('ytimg.com')||s.thumbnail.includes('youtube.com'));
+    for(const song of songs){if(artworkCache[song.id])song.thumbnail=artworkCache[song.id]}
+    const missing=songs.filter(s=>!artworkCache[s.id]);
     if(!missing.length)return;
     try{
       const response=await fetch('https://itunes.apple.com/search?'+new URLSearchParams({term:query,entity:'song',media:'music',limit:'50',country:'us'}),{headers:{Accept:'application/json'}});
