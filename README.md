@@ -129,3 +129,12 @@ Included plugins are provided for interoperability and educational purposes only
 The developers of Musify do not encourage or endorse copyright infringement and assume no liability for misuse of the software or third-party plugins.
 ```
 ---
+
+
+## Browser edition (no APK)
+
+This repository now includes a lightweight browser-based edition in the `web/` directory. It provides a responsive music-search interface, in-page YouTube playback, a persistent player, liked songs, local playlists, queue controls, volume, and light/dark appearance. Saved library data stays in the current browser using local storage.
+
+The browser edition is separate from the Flutter mobile/desktop application and does not require installing an APK. Music discovery uses public third-party Piped instances and playback uses the YouTube embedded player; those services can be unavailable, rate-limited, region-restricted, or block embedding. The web edition therefore cannot guarantee that every track will play. Browser playback requires an internet connection and may be subject to YouTube's restrictions.
+
+A GitHub Actions workflow in `.github/workflows/web-pages.yml` publishes the contents of `web/` to GitHub Pages when enabled in repository settings. After the first successful deployment, the site is normally available at `https://patrickmango49.github.io/Musify/`.
