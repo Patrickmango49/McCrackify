@@ -64,7 +64,7 @@
   function playSearchResult(song){if(state.searchResults.length){state.queue=[...state.searchResults];const index=state.queue.findIndex(item=>item.id===song.id);state.index=index>=0?index:0;playSong(state.queue[state.index]);renderQueue()}else playSong(song)}
   const ART_CACHE_KEY='mccrackify-artwork-cache-v1';
   const artworkCache=load(ART_CACHE_KEY,{});
-  const cleanTitle=s=>String(s||'').toLowerCase().replace(/\\(.*?\\)|\\[.*?\\]/g,' ').replace(/[^a-z0-9]+/g,' ').trim();
+  const cleanTitle=s=>String(s||'').toLowerCase().replace(/\(.*?\)|\[.*?\]/g,' ').replace(/[^a-z0-9]+/g,' ').trim();
   async function loadArtwork(songs,query){
     for(const song of songs){if(artworkCache[song.id])song.thumbnail=artworkCache[song.id]}
     const missing=songs.filter(s=>!artworkCache[s.id]);
