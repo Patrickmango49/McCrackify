@@ -38,7 +38,6 @@
   }
   async function nextSong(){
     if(!state.queue.length||state.index<0)return;
-    if(state.repeat){playSong(state.queue[state.index]);return}
     if(state.index<state.queue.length-1){state.index++;playSong(state.queue[state.index]);return}
     if(state.recommendationLoading)return;
     const current=state.queue[state.index];state.recommendationLoading=true;$('#player-status').textContent='Finding something similar…';
