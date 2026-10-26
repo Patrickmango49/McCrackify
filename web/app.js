@@ -54,7 +54,7 @@
       const payload=await response.json();
       const list=(Array.isArray(payload)?payload:payload.videos||[]).map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));
       if(!list.length)throw new Error('No results');
-      state.searchResults=list;$('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when embedding is allowed';renderCards(list,$('#results'));return;
+      state.searchResults=list;$('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when embedding is allowed';renderCards(list,$('#results'));loadArtwork(list,query);return;
     }catch(e){clearTimeout(timer);lastError=e}}
     // Apple is deliberately not a playback source. YouTube search stays the only track source.
     state.searchResults=[];
