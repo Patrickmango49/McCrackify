@@ -359,3 +359,8 @@ body.light .now-playing-dialog>.expanded-top{
 .now-playing-dialog>.expanded-top{position:sticky!important;top:0!important;background:rgba(7,10,15,.34)!important;background-image:none!important;-webkit-backdrop-filter:blur(12px) saturate(118%)!important;backdrop-filter:blur(12px) saturate(118%)!important;border:0!important;box-shadow:none!important}
 body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!important;background-image:none!important;-webkit-backdrop-filter:blur(12px) saturate(118%)!important;backdrop-filter:blur(12px) saturate(118%)!important;border:0!important}
 .now-playing-dialog .expanded-layout{margin:0 auto!important;padding-top:clamp(4px,1vh,12px)}
+
+/* Explicitly remove all navbar and fullscreen Now Playing header glass effects. */
+.topbar,.light .topbar,body.light .topbar,body.header-glass .topbar,body.header-minimal .topbar{background:transparent!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;filter:none!important;border:0!important;box-shadow:none!important}
+.topbar:before{display:none!important;content:none!important;background:none!important}
+.now-playing-dialog>.expanded-top,body.light .now-playing-dialog>.expanded-top{background:transparent!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;filter:none!important;border:0!important;box-shadow:none!important}
