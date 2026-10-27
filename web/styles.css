@@ -307,3 +307,5 @@ body.light .now-playing-dialog{background:radial-gradient(ellipse at 16% 12%,col
 body.light .now-playing-dialog>.expanded-top{background:color-mix(in srgb,#f3f6fa 94%,transparent);border-bottom-color:#17253612}
 
 .now-playing-dialog .expanded-top-actions{padding-top:4px}
+
+.now-playing-dialog .expanded-top-actions{transform:translateY(8px);padding-top:0}
