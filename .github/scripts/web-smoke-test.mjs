@@ -86,7 +86,7 @@ try {
       return img && img.src.includes('i.ytimg.com/vi/dQw4w9WgXcQ/');
     }, null, { timeout: 10000 });
 
-    await page.locator('#expand-player').click();
+    await page.locator('#current-art').click();
     const dialog = page.locator('#now-playing-dialog');
     await dialog.waitFor({ state: 'visible' });
     for (const id of ['#cover-mode', '#video-mode', '#lyrics-button', '#close-expanded']) {
