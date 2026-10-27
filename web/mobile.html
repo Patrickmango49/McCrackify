@@ -7,6 +7,9 @@
   <meta name="description" content="McCrackify — full-length music playback in your browser, powered by YouTube.">
   <title>McCrackify — Mobile Player</title>
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Patrickmango49/McCrackify/refs/heads/master/logo.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <script>
     (function(){
       var isMobile=/Android|iPhone|iPod|Mobile/i.test(navigator.userAgent)||window.matchMedia("(max-width: 760px)").matches;
@@ -34,7 +37,7 @@
       <header class="topbar">
         <div class="history-buttons"><button id="back" aria-label="Back">‹</button><button id="forward" aria-label="Forward">›</button></div>
         <form id="search-form" class="search-box"><span>⌕</span><input id="search-input" type="search" placeholder="What do you want to listen to?" autocomplete="off"><kbd>ENTER</kbd></form>
-        <button id="upload-music-button" class="add-music-button" type="button" title="Upload your own audio">＋ <span>Add music</span></button><input id="upload-file" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac" hidden><button id="theme-toggle" class="icon-button" title="Toggle light/dark" aria-label="Toggle light/dark">☼</button><button id="settings-button" class="icon-button" title="Customize McCrackify" aria-label="Customize McCrackify">⚙</button>
+        <button id="upload-music-button" class="add-music-button" type="button" title="Upload your own audio">＋ <span>Add music</span></button><input id="upload-file" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.flac" hidden><button id="theme-toggle" class="icon-button" title="Toggle light/dark" aria-label="Toggle light/dark">☼</button><button id="settings-button" class="icon-button" title="Customize McCrackify" aria-label="Customize McCrackify">⚙</button><button id="install-app" class="icon-button" title="Install McCrackify" aria-label="Install McCrackify" hidden>⇩</button>
       </header>
       <section id="youtube-stage" class="youtube-stage hidden" aria-label="Current music video"><div id="musify-yt-player"></div><p>Full-length music videos powered by YouTube · Use the controls below to manage playback</p></section>
       <section id="home-view" class="view">
