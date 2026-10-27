@@ -300,3 +300,8 @@ body.light .now-playing-dialog{background:radial-gradient(ellipse at 16% 12%,col
 .now-playing-dialog .expanded-top-actions{position:relative;z-index:5}
 .now-playing-dialog .close-expanded{position:relative;z-index:6;pointer-events:auto;touch-action:manipulation}
 .settings-dialog .setting-section button,.settings-dialog #reset-customization,.settings-dialog #close-settings{pointer-events:auto;touch-action:manipulation}
+
+
+/* Keep fullscreen actions inside the safe visible area even when the dialog scrolls. */
+.now-playing-dialog>.expanded-top{position:sticky;top:0;z-index:20;flex:none;padding:10px 0 12px;background:color-mix(in srgb,#080c12 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}
+body.light .now-playing-dialog>.expanded-top{background:color-mix(in srgb,#f3f6fa 94%,transparent);border-bottom-color:#17253612}
