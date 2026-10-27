@@ -262,3 +262,29 @@ body.player-scale-large .now-playing-dialog .expanded-cover-wrap{gap:clamp(7px,1
  .now-playing-dialog .expanded-progress-row{margin-top:0}
  .now-playing-dialog .expanded-transport{margin-top:0}
 }
+
+
+/* Keep player view controls in the fixed header so they never fall below the fold. */
+.now-playing-dialog .expanded-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;flex:none;position:relative;z-index:4}
+.expanded-top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.expanded-top-actions .expanded-mode-switch{margin:0;width:auto;flex-wrap:nowrap}
+.expanded-top-actions .lyrics-open-button{min-height:38px}
+.now-playing-dialog .expanded-layout{min-height:0;overflow:hidden}
+.now-playing-dialog .expanded-video-panel{min-height:0;overflow:auto}
+.now-playing-dialog.cover-mode .expanded-layout{min-height:0;overflow:hidden}
+.now-playing-dialog.lyrics-mode .expanded-layout{min-height:0;overflow:hidden}
+@media(max-width:760px){
+ .now-playing-dialog .expanded-top{align-items:flex-start}
+ .expanded-top-actions{width:100%;justify-content:flex-start;gap:7px}
+ .expanded-top-actions .expanded-mode-switch{flex:1;min-width:0}
+ .expanded-top-actions .mode-button{padding:9px 11px;font-size:11px}
+ .expanded-top-actions .lyrics-open-button{padding:9px 11px}
+ .now-playing-dialog .close-expanded{margin-left:auto;position:absolute;right:0;top:0}
+ .now-playing-dialog .expanded-heading{padding-right:48px}
+}
+@media(max-height:650px){
+ .now-playing-dialog .expanded-top{gap:7px}
+ .now-playing-dialog .expanded-top .expanded-heading h2{font-size:19px;margin:2px 0}
+ .expanded-top-actions .mode-button{padding:7px 10px}
+ .expanded-top-actions .lyrics-open-button{min-height:32px;padding:7px 10px}
+}
