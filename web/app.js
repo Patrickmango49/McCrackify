@@ -53,32 +53,15 @@
   function moveQueuedSong(index,delta){const target=index+delta;if(index<=state.index||target<=state.index||target<0||target>=state.queue.length)return;const [song]=state.queue.splice(index,1);state.queue.splice(target,0,song);renderQueue()}
     function previousSong(){if(state.currentSource==='preview'&&state.audio&&state.audio.currentTime>4){state.audio.currentTime=0;return}if(state.ytReady&&state.currentSource==='youtube'){try{if(state.yt.getCurrentTime()>4){state.yt.seekTo(0,true);return}}catch{}}if(state.index>0){state.index-=1;playSong(state.queue[state.index])}}
   async function search(query){
-    query=query.trim();if(!query)return;state.query=query;$('#search-input').value=query;go('search');$('#search-status').textContent='Searching YouTube for full-length tracks…';$('#results').innerHTML='';
-    // First try Piped-compatible search APIs.
-    let lastError=null;
-    for(const base of API_INSTANCES){let timer;try{
-      const controller=new AbortController();timer=setTimeout(()=>controller.abort(),5000);
-      const response=await fetch(base+'/search?'+new URLSearchParams({q:query,filter:'music_songs'}),{signal:controller.signal,headers:{'Accept':'application/json'}});
-      clearTimeout(timer);if(!response.ok)throw new Error('Search service returned '+response.status);
-      const payload=await response.json();
-      const list=(Array.isArray(payload)?payload:payload.items||payload.results||[]).map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));
-      if(!list.length)throw new Error('No results');
-      state.searchResults=list;$('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when embedding is allowed';renderCards(list,$('#results'));loadArtwork(list,query);return;
-    }catch(e){clearTimeout(timer);lastError=e}}
-    // If Piped is down, try current public Invidious instances for search results.
-    for(const base of INVIDIOUS_INSTANCES){let timer;try{
-      const controller=new AbortController();timer=setTimeout(()=>controller.abort(),5000);
-      const response=await fetch(base+'/api/v1/search?'+new URLSearchParams({q:query,type:'video',sort_by:'relevance'}),{signal:controller.signal,headers:{'Accept':'application/json'}});
-      clearTimeout(timer);if(!response.ok)throw new Error('Search service returned '+response.status);
-      const payload=await response.json();
-      const list=(Array.isArray(payload)?payload:payload.videos||[]).map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));
-      if(!list.length)throw new Error('No results');
-      state.searchResults=list;$('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when embedding is allowed';renderCards(list,$('#results'));loadArtwork(list,query);return;
-    }catch(e){clearTimeout(timer);lastError=e}}
-    // Apple is deliberately not a playback source. YouTube search stays the only track source.
-    state.searchResults=[];
-    $('#search-status').textContent='Music search services could not be reached.';
-    $('#results').innerHTML='<div class="empty-state">The music catalogs could not be reached from this browser right now. Check your connection or try again later.<br><br><a href="https://music.youtube.com/search?q='+encodeURIComponent(query)+'" target="_blank" rel="noreferrer" style="color:var(--accent)">Open YouTube Music search ↗</a></div>';console.warn('McCrackify search failed',lastError)
+    query=query.trim();if(!query)return;
+    state.query=query;$('#search-input').value=query;go('search');$('#search-status').textContent='Searching music services…';$('#results').innerHTML='';
+    const sources=[...API_INSTANCES.map(base=>({base,kind:'piped'})),...INVIDIOUS_INSTANCES.map(base=>({base,kind:'invidious'}))];
+    const controllers=[];
+    const attempts=sources.map(async source=>{const controller=new AbortController();controllers.push(controller);const timer=setTimeout(()=>controller.abort(),5500);try{const url=source.kind==='piped'?source.base+'/search?'+new URLSearchParams({q:query,filter:'music_songs'}):source.base+'/api/v1/search?'+new URLSearchParams({q:query,type:'video',sort_by:'relevance'});const response=await fetch(url,{signal:controller.signal,headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Search service unavailable');const payload=await response.json();const raw=Array.isArray(payload)?payload:(source.kind==='piped'?(payload.items||payload.results||[]):(payload.videos||[]));const list=raw.map(normalize).filter(s=>s.id&&/^[a-zA-Z0-9_-]{11}$/.test(s.id));if(!list.length)throw new Error('No results');return list}catch(e){throw e}finally{clearTimeout(timer)}});
+    let list=[];try{list=await Promise.any(attempts)}catch{}
+    controllers.forEach(controller=>controller.abort());
+    if(!list.length){state.searchResults=[];$('#search-status').textContent='Music search services could not be reached.';$('#results').innerHTML='<div class="empty-state">The music catalogs could not be reached from this browser right now. Check your connection or try again later.<br><br><a href="https://music.youtube.com/search?q='+encodeURIComponent(query)+'" target="_blank" rel="noreferrer" style="color:var(--accent)">Open YouTube Music search ↗</a></div>';return}
+    state.searchResults=list;$('#search-status').textContent='YouTube results for “'+query+'” · full-length playback when embedding is allowed';renderCards(list,$('#results'));loadArtwork(list,query);
   }
   function playSearchResult(song){state.queue=[song];state.index=0;state.discoverySeen=new Set([song.id]);playSong(song);renderQueue()}
   const ART_CACHE_KEY='mccrackify-artwork-cache-v2';
