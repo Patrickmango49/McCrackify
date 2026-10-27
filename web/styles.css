@@ -364,3 +364,13 @@ body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!im
 .topbar,.light .topbar,body.light .topbar,body.header-glass .topbar,body.header-minimal .topbar{background:transparent!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;filter:none!important;border:0!important;box-shadow:none!important}
 .topbar:before{display:none!important;content:none!important;background:none!important}
 .now-playing-dialog>.expanded-top,body.light .now-playing-dialog>.expanded-top{background:transparent!important;background-image:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;filter:none!important;border:0!important;box-shadow:none!important}
+
+/* Playlist management controls and reliable hidden install affordance. */
+[hidden]{display:none!important}
+.playlist-library-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;margin:0 0 10px}
+.playlist-library-item>.quick-card{min-width:0;margin:0!important}
+.playlist-library-actions{display:flex;gap:6px;align-items:center}
+.playlist-library-actions .secondary-button{padding:8px 10px;font-size:12px;white-space:nowrap}
+.track-row .row-actions{display:flex;gap:5px;align-items:center}
+.track-row .row-actions button{min-width:30px;min-height:30px}
+@media(max-width:650px){.playlist-library-item{grid-template-columns:minmax(0,1fr)}.playlist-library-actions{justify-content:flex-end}.track-row .row-actions{gap:2px}.track-row .row-actions button{min-width:27px;min-height:29px;padding:3px}}
