@@ -288,3 +288,15 @@ body.player-scale-large .now-playing-dialog .expanded-cover-wrap{gap:clamp(7px,1
  .expanded-top-actions .mode-button{padding:7px 10px}
  .expanded-top-actions .lyrics-open-button{min-height:32px;padding:7px 10px}
 }
+
+
+/* Final polish: stable backgrounds and a clean, non-fading sticky header. */
+body{background-color:var(--bg);background-image:radial-gradient(ellipse at 12% 0%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 43%),radial-gradient(ellipse at 92% 38%,color-mix(in srgb,#526f9a 7%,transparent),transparent 46%);background-attachment:fixed}
+.topbar{background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);isolation:isolate}
+.light .topbar{background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom-color:color-mix(in srgb,var(--line) 75%,transparent)}
+.now-playing-dialog,body.backdrop-aurora .now-playing-dialog,body.backdrop-midnight .now-playing-dialog,body.backdrop-ember .now-playing-dialog{background:radial-gradient(ellipse at 16% 12%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 48%),radial-gradient(ellipse at 88% 80%,color-mix(in srgb,#6f75b9 9%,transparent),transparent 43%),#080c12}
+body.light .now-playing-dialog{background:radial-gradient(ellipse at 16% 12%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 48%),#f3f6fa}
+.now-playing-dialog>.expanded-ambient-art{opacity:.12;filter:blur(42px) saturate(1.1)}
+.now-playing-dialog .expanded-top-actions{position:relative;z-index:5}
+.now-playing-dialog .close-expanded{position:relative;z-index:6;pointer-events:auto;touch-action:manipulation}
+.settings-dialog .setting-section button,.settings-dialog #reset-customization,.settings-dialog #close-settings{pointer-events:auto;touch-action:manipulation}
