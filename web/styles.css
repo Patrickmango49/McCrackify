@@ -141,3 +141,9 @@ body.reduce-motion.is-playing:before{animation:none}
 .mobile-app .app-shell{display:block}
 .mobile-app .main{width:100%;min-width:0}
 @media(prefers-reduced-motion:reduce){body.is-playing:not(.visualizer-off):before{animation:none}.now-playing-dialog>.expanded-ambient-art{transition:none}}
+
+.app-shell{position:relative;z-index:1}
+.queue-header-actions{display:flex;align-items:center;gap:8px}
+.queue-header-actions .secondary-button{font-size:11px;padding:8px 10px}
+.queue-subtitle{margin:4px 0 0;color:var(--muted);font-size:11px}
+@media(max-width:480px){.queue-header-actions{gap:5px}.queue-header-actions .secondary-button{padding:7px 8px;font-size:10px}}
