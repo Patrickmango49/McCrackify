@@ -6,7 +6,7 @@
 
 Search for music, play YouTube videos in the built-in player, queue search results, skip between tracks, save liked songs, and make playlists — no APK required.
 
-[Open McCrackify](https://patrickmango49.github.io/Musify/)
+[Open McCrackify](https://patrickmango49.github.io/McCrackify/web/)
 
 </div>
 
