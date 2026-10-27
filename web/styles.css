@@ -332,3 +332,19 @@ body.cards-sharp .song-card,body.cards-sharp .quick-card,body.cards-sharp .song-
 .topbar .history-buttons button{box-shadow:none}
 .song-art:after{font-size:18px!important;line-height:1!important;font-weight:600;width:30px;height:30px;display:grid;place-items:center;box-sizing:border-box;padding:0;text-align:center}
 .song-card-bottom .queue-next{display:none!important}
+
+
+/* Fullscreen player: keep the action row floating cleanly without the dark glass/gradient strip. */
+.now-playing-dialog>.expanded-top{
+  background:transparent!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border-bottom:0!important;
+  box-shadow:none!important;
+}
+body.light .now-playing-dialog>.expanded-top{
+  background:transparent!important;
+  background-image:none!important;
+  border-bottom:0!important;
+}
