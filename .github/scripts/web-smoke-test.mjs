@@ -36,7 +36,8 @@ try {
   browser = await chromium.launch({ headless: true });
   for (const [file, viewport] of [
     ['index.html', { width: 1280, height: 800 }],
-    ['mobile.html', { width: 390, height: 844 }]
+    ['mobile.html', { width: 390, height: 844 }],
+    ['standalone.html', { width: 1280, height: 800 }]
   ]) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
@@ -63,6 +64,11 @@ try {
     await page.route('https://lrclib.net/**', route => route.fulfill({ status: 404, contentType: 'application/json', body: '{}' }));
 
     await page.goto(`http://127.0.0.1:4173/${file}`);
+    if (file === 'standalone.html') {
+      assert.equal(await page.locator('link[rel="stylesheet"]').count(), 0, 'standalone: styles are embedded');
+      assert.equal(await page.locator('script[src]').count(), 0, 'standalone: scripts are embedded');
+      assert.equal(await page.locator('a[target="_blank"]').count(), 0, 'standalone: links do not spawn new tabs');
+    }
     await page.locator('#settings-button').click();
     assert.equal(await page.locator('#settings-dialog').evaluate(el => el.open), true, `${file}: settings opens`);
     await page.locator('[data-accent="#4d8dff"]').click();
