@@ -348,3 +348,14 @@ body.light .now-playing-dialog>.expanded-top{
   background-image:none!important;
   border-bottom:0!important;
 }
+
+
+/* Subtle translucent navbar treatment, without a visible gradient slab. */
+.topbar{background:rgba(9,11,14,.34)!important;background-image:none!important;-webkit-backdrop-filter:blur(12px) saturate(118%)!important;backdrop-filter:blur(12px) saturate(118%)!important;border:0!important;box-shadow:none!important}
+.topbar:before{display:none!important;content:none!important}
+.brand-logo{display:block;width:31px;height:31px;flex:none;object-fit:contain;border-radius:8px}
+.brand{gap:10px}
+.now-playing-dialog[open]{gap:clamp(14px,2vh,24px)}
+.now-playing-dialog>.expanded-top{position:sticky!important;top:0!important;background:rgba(7,10,15,.34)!important;background-image:none!important;-webkit-backdrop-filter:blur(12px) saturate(118%)!important;backdrop-filter:blur(12px) saturate(118%)!important;border:0!important;box-shadow:none!important}
+body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!important;background-image:none!important;-webkit-backdrop-filter:blur(12px) saturate(118%)!important;backdrop-filter:blur(12px) saturate(118%)!important;border:0!important}
+.now-playing-dialog .expanded-layout{margin:0 auto!important;padding-top:clamp(4px,1vh,12px)}
