@@ -191,3 +191,22 @@ body.reduce-motion.is-playing:before{animation:none}
  .now-playing-dialog.lyrics-mode .lyrics-panel-content{font-size:14px;line-height:1.7}
  .now-playing-dialog.lyrics-mode .expanded-transport{gap:16px}
 }
+
+
+/* Keep mode selectors visible in artwork mode; only hide the video surface itself. */
+.now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel){
+  display:block;width:min(750px,100%);margin:0 auto;padding:0;border:0;
+  background:transparent;box-shadow:none;overflow:visible
+}
+.now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) #expanded-stage-slot,
+.now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) .expanded-hint{display:none!important}
+.now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) .expanded-panel-heading{
+  justify-content:center;gap:12px;margin:0;flex-direction:row;align-items:center
+}
+.now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) .expanded-panel-heading>div:first-child{display:none}
+.now-playing-dialog.cover-mode .expanded-lyrics-panel{display:none!important}
+.now-playing-dialog.video-mode .expanded-lyrics-panel{display:none!important}
+@media(max-width:850px){
+ .now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) .expanded-panel-heading{flex-wrap:wrap}
+ .now-playing-dialog.cover-mode .expanded-video-panel:not(.expanded-lyrics-panel) .expanded-mode-switch{width:auto;align-self:center}
+}
