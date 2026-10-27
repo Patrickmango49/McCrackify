@@ -130,3 +130,14 @@ body.reduce-motion.is-playing:before{animation:none}
   body.mobile-app .lyrics-dialog{max-height:85dvh}
   body.mobile-app .lyrics-content{max-height:58dvh}
 }
+
+/* Full-screen now-playing artwork atmosphere */
+.now-playing-dialog{position:relative;isolation:isolate}
+.now-playing-dialog>.expanded-ambient-art{position:absolute;inset:-5%;z-index:0;background-size:cover;background-position:center;opacity:.19;filter:blur(34px) saturate(1.25);transform:scale(1.08);pointer-events:none;transition:opacity .4s ease,background-image .35s ease}
+.now-playing-dialog>.expanded-top,.now-playing-dialog>.expanded-layout{position:relative;z-index:1}
+.now-playing-dialog.cover-mode>.expanded-ambient-art{opacity:.23}
+.now-playing-dialog.video-mode>.expanded-ambient-art{opacity:.13}
+.mobile-app .sidebar{display:none}
+.mobile-app .app-shell{display:block}
+.mobile-app .main{width:100%;min-width:0}
+@media(prefers-reduced-motion:reduce){body.is-playing:not(.visualizer-off):before{animation:none}.now-playing-dialog>.expanded-ambient-art{transition:none}}
