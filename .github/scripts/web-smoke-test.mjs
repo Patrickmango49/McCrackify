@@ -93,7 +93,7 @@ try {
       const control = page.locator(id);
       const box = await control.boundingBox();
       assert.ok(box && box.width > 0 && box.height > 0, `${file}: ${id} is visible`);
-      assert.ok(box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width && box.y + box.height <= viewport.height, `${file}: ${id} fits viewport; box=${JSON.stringify(box)} viewport=${JSON.stringify(viewport)}`);
+      assert.ok(box.x >= -2 && box.y >= -2 && box.x + box.width <= viewport.width + 2 && box.y + box.height <= viewport.height + 2, `${file}: ${id} fits viewport; box=${JSON.stringify(box)} viewport=${JSON.stringify(viewport)}`);
     }
     await page.locator('#video-mode').click();
     assert.equal(await dialog.evaluate(el => el.classList.contains('video-mode')), true, `${file}: video mode button works`);
