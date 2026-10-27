@@ -379,3 +379,6 @@ body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!im
 .now-playing-dialog[open]{position:fixed!important;inset:0!important;margin:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;overflow:auto!important;}
 .now-playing-dialog[open]>.expanded-top{position:sticky!important;top:0!important;transform:none!important;}
 .now-playing-dialog .expanded-top-actions{transform:none!important;}
+
+/* Drag ordering and playlist artwork. */
+.track-row[draggable="true"]{cursor:grab}.track-row[draggable="true"]:active{cursor:grabbing}.track-row.dragging{opacity:.45}.track-row.drag-over{outline:1px dashed var(--accent);outline-offset:-2px;background:color-mix(in srgb,var(--accent) 7%,var(--panel))}.playlist-cover-thumb{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
