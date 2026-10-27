@@ -4,6 +4,7 @@ on:
     branches: [master]
     paths:
       - 'web/**'
+      - '.github/scripts/web-smoke-test.mjs'
       - '.github/workflows/web-pages.yml'
   workflow_dispatch:
 permissions:
