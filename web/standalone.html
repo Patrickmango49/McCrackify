@@ -386,6 +386,11 @@ body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!im
 .track-row .row-actions button{min-width:30px;min-height:30px}
 @media(max-width:650px){.playlist-library-item{grid-template-columns:minmax(0,1fr)}.playlist-library-actions{justify-content:flex-end}.track-row .row-actions{gap:2px}.track-row .row-actions button{min-width:27px;min-height:29px;padding:3px}}
 
+/* Anchor the fullscreen player to the viewport so its controls never start above the visible area. */
+.now-playing-dialog[open]{position:fixed!important;inset:0!important;margin:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;overflow:auto!important;}
+.now-playing-dialog[open]>.expanded-top{position:sticky!important;top:0!important;transform:none!important;}
+.now-playing-dialog .expanded-top-actions{transform:none!important;}
+
 </style>
 </head>
 <body>
