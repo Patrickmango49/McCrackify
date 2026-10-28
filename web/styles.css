@@ -382,3 +382,46 @@ body.light .now-playing-dialog>.expanded-top{background:rgba(245,248,252,.36)!im
 
 /* Drag ordering and playlist artwork. */
 .track-row[draggable="true"]{cursor:grab}.track-row[draggable="true"]:active{cursor:grabbing}.track-row.dragging{opacity:.45}.track-row.drag-over{outline:1px dashed var(--accent);outline-offset:-2px;background:color-mix(in srgb,var(--accent) 7%,var(--panel))}.playlist-cover-thumb{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+
+
+/* Mobile polish: safe-area-aware layout, comfortable touch targets, and resilient narrow screens. */
+@media(max-width:760px){
+ body.mobile-app{min-height:100dvh;padding-bottom:env(safe-area-inset-bottom)}
+ body.mobile-app .main{padding-left:clamp(10px,3.5vw,16px);padding-right:clamp(10px,3.5vw,16px);padding-bottom:calc(245px + env(safe-area-inset-bottom))}
+ body.mobile-app .topbar{gap:7px;padding-top:calc(8px + env(safe-area-inset-top))}
+ body.mobile-app .search-box{flex:1 1 120px;max-width:none}
+ body.mobile-app .search-box input{min-width:0}
+ body.mobile-app #settings-button,body.mobile-app #install-app{width:40px;height:40px;min-width:40px}
+ body.mobile-app .player{bottom:calc(62px + env(safe-area-inset-bottom));padding:9px 10px;gap:7px 8px;grid-template-columns:minmax(0,1fr) auto}
+ body.mobile-app .track-meta b,body.mobile-app .track-meta span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ body.mobile-app .player-controls{gap:clamp(7px,2.5vw,12px)}
+ body.mobile-app .player-controls button{min-width:32px;min-height:36px}
+ body.mobile-app .player-controls .play-button{min-width:40px;min-height:40px}
+ body.mobile-app .mobile-nav{height:calc(62px + env(safe-area-inset-bottom));padding:5px 8px calc(5px + env(safe-area-inset-bottom))}
+ body.mobile-app .mobile-nav .nav-item{min-height:44px}
+ body.mobile-app .results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.mobile-app .song-card{overflow:hidden}
+ body.mobile-app .song-title,body.mobile-app .song-subtitle{overflow-wrap:anywhere}
+ body.mobile-app .page-title h1,body.mobile-app .liked-hero h1{font-size:clamp(27px,8vw,38px);overflow-wrap:anywhere}
+ body.mobile-app .notice{padding:12px}
+}
+@media(max-width:360px){
+ body.mobile-app .main{padding-left:9px;padding-right:9px}
+ body.mobile-app .topbar{gap:5px}
+ body.mobile-app .search-box{padding:0 8px}
+ body.mobile-app #settings-button,body.mobile-app #install-app{width:36px;height:36px;min-width:36px}
+ body.mobile-app .player{left:5px;right:5px;padding:8px}
+ body.mobile-app .current-art{width:36px;height:36px}
+ body.mobile-app .now-playing{gap:6px}
+ body.mobile-app .like-button{padding:2px}
+ body.mobile-app .player-controls{gap:5px}
+ body.mobile-app .player-controls .play-button{width:36px;height:36px;min-width:36px;min-height:36px}
+}
+@media(orientation:landscape) and (max-height:500px) and (max-width:900px){
+ body.mobile-app .hero{padding:18px}
+ body.mobile-app .hero-art{opacity:.16}
+ body.mobile-app .player{grid-template-columns:minmax(0,1fr) auto}
+ body.mobile-app .now-playing{grid-column:1;grid-row:1}
+ body.mobile-app .player-center{grid-column:2;grid-row:1}
+ body.mobile-app .progress-row{grid-column:1/-1;grid-row:2}
+}
