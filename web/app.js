@@ -3,10 +3,17 @@
   const $ = (s, root=document) => root.querySelector(s);
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const STORE = {liked:'mccrackify-liked-v1', playlists:'mccrackify-playlists-v1', theme:'mccrackify-theme-v1', queue:'mccrackify-queue-v1', playback:'mccrackify-playback-v1'};
+  const MOBILE_MODE = window.MCCRACKIFY_MOBILE_MODE === true;
   const API_INSTANCES = [
     'https://pipedapi.adminforge.de',
     'https://pipedapi.leptons.xyz',
-    'https://pipedapi.kavin.rocks'
+    'https://pipedapi.kavin.rocks',
+    ...(MOBILE_MODE ? [
+      'https://pipedapi.nosebs.ru',
+      'https://pipedapi-libre.kavin.rocks',
+      'https://piped-api.privacy.com.de',
+      'https://api.piped.yt'
+    ] : [])
   ];
   // Public instances are best-effort search backends; playback always uses the official YouTube embed.
   const INVIDIOUS_INSTANCES = [
@@ -61,7 +68,7 @@
     const searchToken=++state.searchToken;state.query=query;$('#search-input').value=query;go('search');$('#search-status').textContent='Searching music services…';$('#results').innerHTML='';
     const sources=[...API_INSTANCES.map(base=>({base,kind:'piped'})),...INVIDIOUS_INSTANCES.map(base=>({base,kind:'invidious'}))];
     const attempts=sources.map(async source=>{
-      const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),5000);
+      const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),MOBILE_MODE?8000:5000);
       try{
         const url=source.kind==='piped'?source.base+'/search?'+new URLSearchParams({q:query,filter:'music_songs'}):source.base+'/api/v1/search?'+new URLSearchParams({q:query,type:'video',sort_by:'relevance'});
         const response=await fetch(url,{signal:controller.signal,headers:{Accept:'application/json'}});
