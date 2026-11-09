@@ -1,10 +1,8 @@
-const CACHE_NAME = 'mccrackify-shell-v2';
+const CACHE_NAME = 'mccrackify-shell-v3';
 const SHELL = [
   './',
   './index.html',
   './mobile.html',
-  './styles.css',
-  './app.js',
   './manifest.webmanifest',
   './logo.png'
 ];
